@@ -4,18 +4,18 @@
     use_sim_time: true
     imuType: 0
     # Topics
-    # pointCloudTopic: "/lidar/points_lio"                   # Point cloud data
-    # imuTopic: "/imu/data"                          # IMU data
-    pointCloudTopic: "/rslidar_points"                   # Point cloud data
-    imuTopic: "/rslidar_imu_data"      
+    pointCloudTopic: "/lidar/points_lio"                   # Point cloud data
+    imuTopic: "/imu/data"                          # IMU data
+    # pointCloudTopic: "/rslidar_points"                   # Point cloud data
+    # imuTopic: "/rslidar_imu_data"      
     odomTopic: "odometry/imu"                    # IMU pre-preintegration odometry, same frequency as IMU
     gpsTopic: "odometry/gpsz"                    # GPS odometry topic from navsat, see module_navsat.launch file
 
     # Frames
-    # lidarFrame: "airy_link"
-    # baselinkFrame: "base_link"
-    lidarFrame: "rslidar"
-    baselinkFrame: "rslidar"
+    lidarFrame: "airy_link"
+    baselinkFrame: "base_link"
+    # lidarFrame: "rslidar"
+    # baselinkFrame: "rslidar"
     odometryFrame: "odom"
     mapFrame: "map"
 
@@ -39,28 +39,28 @@
     lidarMaxRange: 60.0                        # default: 1000.0, maximum lidar range to be used
 
     # IMU Settings
-    imuAccNoise: 3.9939570888238808e-01
-    imuGyrNoise: 1.5636343949698187e-01
-    imuAccBiasN: 6.4356659353532566e-03
-    imuGyrBiasN: 3.5640318696367613e-03
+    imuAccNoise: 3.9939570888238808e-03
+    imuGyrNoise: 1.5636343949698187e-03
+    imuAccBiasN: 6.4356659353532566e-05
+    imuGyrBiasN: 3.5640318696367613e-05
 
     imuGravity: 9.80511
     imuRPYWeight: 0.01
 
-    # extrinsicTrans:  [ 0.0,  0.0,  0.1 ]
-    # extrinsicRot:    [ 1.0,  0.0,  0.0,
-    #                    0.0,  1.0,  0.0,
-    #                    0.0,  0.0,  1.0 ]
-    # extrinsicRPY: [ 1.0,  0.0,  0.0,
-    #                 0.0,  1.0,  0.0,
-    #                 0.0,  0.0,  1.0 ]
-    extrinsicTrans:  [ 0.0,  0.0,  0.0 ]
+    extrinsicTrans:  [ 0.0,  0.0,  0.1 ]
     extrinsicRot:    [ 1.0,  0.0,  0.0,
                        0.0,  1.0,  0.0,
                        0.0,  0.0,  1.0 ]
     extrinsicRPY: [ 1.0,  0.0,  0.0,
                     0.0,  1.0,  0.0,
                     0.0,  0.0,  1.0 ]
+    # extrinsicTrans:  [ 0.0,  0.0,  0.0 ]
+    # extrinsicRot:    [ 1.0,  0.0,  0.0,
+    #                    0.0,  1.0,  0.0,
+    #                    0.0,  0.0,  -1.0 ]
+    # extrinsicRPY: [ 1.0,  0.0,  0.0,
+    #                 0.0,  1.0,  0.0,
+    #                 0.0,  0.0,  -1.0 ]
 
     # LOAM feature threshold
     edgeThreshold: 1.0
