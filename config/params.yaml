@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
 
-    use_sim_time: true
+    use_sim_time: false
     imuType: 0
     # Topics
     # pointCloudTopic: "/lidar/points_lio"                   # Point cloud data
@@ -15,7 +15,7 @@
     # lidarFrame: "airy_link"
     # baselinkFrame: "base_link"
     lidarFrame: "rslidar"
-    baselinkFrame: "rslidar"
+    baselinkFrame: "base_link"
     odometryFrame: "odom"
     mapFrame: "map"
 
@@ -26,8 +26,8 @@
     poseCovThreshold: 25.0                       # m^2, threshold for using GPS data
 
     # Export settings
-    savePCD: false                               # https://github.com/TixiaoShan/LIO-SAM/issues/3
-    savePCDDirectory: "/Downloads/LOAM/"         # in your home folder, starts and ends with "/". Warning: the code deletes "LOAM" folder then recreates it. See "mapOptimization" for implementation
+    savePCD: true                               # https://github.com/TixiaoShan/LIO-SAM/issues/3
+    savePCDDirectory: "/maps/LOAM/"         # in your home folder, starts and ends with "/". Warning: the code deletes "LOAM" folder then recreates it. See "mapOptimization" for implementation
 
     # Sensor Settings
     sensor: velodyne                             # lidar sensor type, either 'velodyne', 'ouster' or 'livox'
@@ -35,14 +35,14 @@
     Horizon_SCAN: 900                            # lidar horizontal resolution (Velodyne:1800, Ouster:512,1024,2048, Livox Horizon: 4000)
     downsampleRate: 1                            # default: 1. Downsample your data if too many
     # points. i.e., 16 = 64 / 4, 16 = 16 / 1
-    lidarMinRange: 0.1                           # default: 1.0, minimum lidar range to be used
+    lidarMinRange: 0.1                          # default: 1.0, minimum lidar range to be used
     lidarMaxRange: 60.0                        # default: 1000.0, maximum lidar range to be used
 
     # IMU Settings
-    imuAccNoise: 3.9939570888238808e-01
-    imuGyrNoise: 1.5636343949698187e-01
-    imuAccBiasN: 6.4356659353532566e-03
-    imuGyrBiasN: 3.5640318696367613e-03
+    imuAccNoise: 7.0e-04
+    imuGyrNoise: 1.0e-03
+    imuAccBiasN: 6.0e-05
+    imuGyrBiasN: 2.5e-05
 
     imuGravity: 9.80511
     imuRPYWeight: 0.01
@@ -54,13 +54,22 @@
     # extrinsicRPY: [ 1.0,  0.0,  0.0,
     #                 0.0,  1.0,  0.0,
     #                 0.0,  0.0,  1.0 ]
-    extrinsicTrans:  [ 0.0,  0.0,  0.0 ]
-    extrinsicRot:    [ 1.0,  0.0,  0.0,
-                       0.0,  1.0,  0.0,
-                       0.0,  0.0,  1.0 ]
-    extrinsicRPY: [ 1.0,  0.0,  0.0,
-                    0.0,  1.0,  0.0,
-                    0.0,  0.0,  1.0 ]
+    extrinsicTrans:  [0.004250, 0.004180, -0.004460]
+    # extrinsicRot:    [ 1.0,  0.0,  0.0,
+    #                    0.0,  1.0,  0.0,
+    #                    0.0,  0.0,  1.0 ]
+    # extrinsicRPY: [ 1.0,  0.0,  0.0,
+    #                 0.0,  1.0,  0.0,
+    #                 0.0,  0.0,  1.0 ]
+    extrinsicRot: [ 0.0, -1.0,  0.0,
+                  -1.0,  0.0,  0.0,
+                  0.0,  0.0, -1.0 ]
+    # Since Airy has 6 DOF of IMU the quaternion/attitude is identiy quaternion and doesnt change, 
+    # so by keeping the extrinsicRPY as identity matrix, the extrinsicRot is the only thing that matters. 
+    # The extrinsicRot is the rotation from IMU frame to LiDAR frame. The extrinsicTrans is the translation from IMU frame to LiDAR frame.
+    extrinsicRPY: [ 1.0,  0.0,  0.0, 
+                  0.0,  1.0,  0.0,
+                  0.0,  0.0 , 1.0 ]
 
     # LOAM feature threshold
     edgeThreshold: 1.0
@@ -85,7 +94,7 @@
     surroundingkeyframeAddingDistThreshold: 1.0   # meters, regulate keyframe adding threshold
     surroundingkeyframeAddingAngleThreshold: 0.2  # radians, regulate keyframe adding threshold
     surroundingKeyframeDensity: 2.0               # meters, downsample surrounding keyframe poses   
-    surroundingKeyframeSearchRadius: 50.0         # meters, within n meters scan-to-map optimization
+    surroundingKeyframeSearchRadius: 30.0         # meters, within n meters scan-to-map optimization
     # (when loop closure disabled)
 
     # Loop closure
